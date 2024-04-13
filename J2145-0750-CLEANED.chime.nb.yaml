@@ -1,0 +1,76 @@
+source: J2145-0750
+par-directory: /Users/USER1/Desktop/VGRG
+par-directory: /Users/USER1/Desktop/VGRG
+tim-directory: /Users/USER1/Desktop/VGRG
+#timing-model:  J2145-0750_PINT_20220302_modified.nb.par
+timing-model: J2145-0750_PINT_20240213_test.nb.par
+compare-model:  
+toas:
+#- CHIME_J2145-0750_quasinanograv_0413.tim 
+#- J2145-0750_PINT_20220302.nb.tim
+- J2145-0750_PINT_20240213.nb.tim
+
+free-params: [PX, ELONG, ELAT, PMELONG, PMELAT, F0, F1, PB, A1, A1DOT, TASC, EPS1,
+  EPS2, H3, FD1, FD2, JUMP1, JUMP2]  # parameters not included here will be frozen. Start by freezing all params except jumps.
+free-dmx: Yes
+toa-type: NB
+fitter: GLSFitter
+n-iterations: 1
+ephem: DE440
+bipm: BIPM2021
+
+dmx:  # control dmx windowing/fixing
+  ignore-dmx: false
+  fratio: 1.1
+  max-sw-delay: 0.1 # finer binning when solar wind delay > threshold (us)
+  custom-dmx: [] # designated by [mjd_low,mjd_hi,binsize]
+outlier: # control outlier analysis runs
+  method: gibbs
+  n-burn: 1000
+  n-samples: 20000
+
+intermediate-results: # use results from previous runs
+  noise-dir: /home/jovyan/work/shared/benschumont/
+  compare-noise-dir: #/home/jovyan/work/shared/benschumont/J1245-0750_CompareNoiseDir
+  excised-tim: /nanograv/share/15yr/timing/intermediate/20220209.Outlier.nb.3460db7/J2145-0750.nb/J2145-0750.nb_excise.tim
+  no-corner: true
+ignore: # toa excision
+  mjd-start:
+  mjd-end: 59072
+  snr-cut: 8
+  
+  bad-range:
+  bad-file:
+  #- CHIME_J2145-0750_beam_1_58791_9880
+  #- CHIME_J2145-0750_beam_1_58926_64215
+  #- CHIME_J2145-0750_beam_5_58949_58795
+  #- CHIME_J2145-0750_beam_5_58950_58554
+  #- CHIME_J2145-0750_beam_7_58839_84744
+  #- CHIME_J2145-0750_beam_9_59049_35263
+  #- CHIME_J2145-0750_beam_2_59034_38803
+  #- CHIME_J2145-0750_beam_3_58987_49826
+  #- CHIME_J2145-0750_beam_9_59017_42750
+  - CHIME_J2145-0750_beam_6_58850_82144
+  - CHIME_J2145-0750_beam_3_58879_75304
+  - CHIME_J2145-0750_beam_3_59016_42983
+  #- CHIME_J2145-0750_beam_3_58915_66814
+  #- CHIME_J2145-0750_beam_8_58793_9427
+  - CHIME_J2145-0750_beam_7_59159_9315
+  - CHIME_J2145-0750_beam_3_58987_49826.ftp
+  #- CHIME_J2145-0750_beam_8_58965_55014
+  - CHIME_J2145-0750_beam_3_58987_49826.ftp
+  #- CHIME_J2145-0750_beam_8_58965_55014
+  - CHIME_J2145-0750_beam_2_59015_43219.ftp
+  - CHIME_J2145-0750_beam_3_58843_83796.ftp
+  - CHIME_J2145-0750_beam_6_58850_82144.ftp
+  - CHIME_J2145-0750_beam_7_58839_84744.ftp
+  - CHIME_J2145-0750_beam_7_58911_67754.ftp
+  - CHIME_J2145-0750_beam_8_58793_9427.ftp
+  - CHIME_J2145-0750_beam_8_58965_55014.ftp
+  - CHIME_J2145-0750_beam_9_58873_76718.ftp
+ 
+  
+
+
+changelog:
+- '2021-04-07 created the config'
